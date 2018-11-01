@@ -2,7 +2,10 @@
    <div id="app" class="container">
   <div class="row">
     <div class="col-md-9">
-      <div id="map" class="map"></div>
+      <div id="map" class="map" 
+      v-on:drag="drag($event)""
+      v-on:enterFullscreen="enterFullscreen($event)"
+      v-on:exitFullscreen="exitFullscreen($event)"></div>
     </div>
     <div class="col-md-3">
      <div class="form-check"
@@ -21,7 +24,7 @@
 </div> 
 </template>
 <style scoped>
-.map { height: 600px; }
+.map { height: 800px; }
 </style>
 
 <script src="..\scripts\maps.js"/>
