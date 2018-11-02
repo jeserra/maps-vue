@@ -3,14 +3,14 @@
   <div class="row">
     <div class="col-md-9">
       <div id="map" class="map" 
-      v-on:drag="drag($event)""
+      v-on:drag="drag($event)"
       v-on:enterFullscreen="enterFullscreen($event)"
       v-on:exitFullscreen="exitFullscreen($event)"></div>
     </div>
     <div class="col-md-3">
      <div class="form-check"
        v-for="layer in layers" :key="layer.id">
-  		<label class="form-check-label">
+       <label class="form-check-label">
   <input class="form-check-input" 
     type="checkbox"
     v-model="layer.active"
@@ -24,8 +24,8 @@
 </div> 
 </template>
 <style scoped>
-.map { height: 800px; }
+.map { height: 800px; width :1200px; }
 </style>
-
+<script type="text/javascript">L_PREFER_CANVAS = true;</script>
 <script src="..\scripts\maps.js"/>
  
