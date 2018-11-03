@@ -1,4 +1,7 @@
 # maps
+Project sample with some features of leafletjs using with vue. 
+
+Use of topojson to display many elements. 
 
 ## Project setup
 ```
