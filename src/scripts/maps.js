@@ -1,11 +1,16 @@
 import axios from "axios";
-
+import {fraccionamientosconfig}  from "../configs/fraccionamientosconfig.js"
 
 export default {
-
+  props: {
+    acronimo: String
+  },
   created()
   {
+    console.log(this.acronimo);
     	this.getdataJson();
+    	this.getdatacomJson();
+
   } 
   ,
   data() {
@@ -13,13 +18,18 @@ export default {
     map: null, 
     tileLayer: null,
     layers: [ ], 
-    bounds: [] ,
-    imageUrl : "https://cmsumbracostorage.blob.core.windows.net/media/7311/ranchoisabella-final.jpg",
     topoLayer :  null,
     features : [],
+    commercialData : [],
     lg : new L.layerGroup(),
     positionControls : 'bottomright',
-    topoLayer : new L.TopoJSON()
+    topoLayer : new L.TopoJSON(),
+
+    bounds: fraccionamientosconfig[this.acronimo].bounds, // L.latLngBounds([32.5434325643, -116.3206140960], [32.5256856161, -116.2937705616]) ,
+    imageUrl :  fraccionamientosconfig[this.acronimo].imageUrl, // "https://cmsumbracostorage.blob.core.windows.net/media/7311/ranchoisabella-final.jpg",
+    lotesUrl: fraccionamientosconfig[this.acronimo].lotesUrl, // `http://cmsumbracostorage.blob.core.windows.net/kml/RI/GEO/31052017/082739/RI_completo.topo.json`,
+    latitud: fraccionamientosconfig[this.acronimo].latitud,
+    longitud: fraccionamientosconfig[this.acronimo].longitud
    }
   },
   mounted() { 
@@ -28,13 +38,10 @@ export default {
   },
   methods: { 
    initMap() { 
-
-	
-     this.bounds = L.latLngBounds([32.5434325643, -116.3206140960], [32.5256856161, -116.2937705616]); // El bueno Punta azul 
       this.map = L.map('map', {
                 attributionControl: false,
                 zoomControl: false,
-                maxZoom: 19, /*minZoom: minZoomMapa,*/ fullscreenControl: true, maxBounds: this.bounds,
+                maxZoom: 19,  minZoom: 17, fullscreenControl: true, maxBounds: this.bounds,
                 fullscreenControlOptions: { // optional
                     title: "Show me the fullscreen!",
                     titleCancel: "Exit fullscreen mode",
@@ -42,22 +49,14 @@ export default {
             }
          }); 
 
-    this.map.setView([32.53457, -116.30713], 16);
+   // this.map.setView([32.53457, -116.30713], 16);
+    this.map.setView([this.latitud, this.longitud], 16);
     var imageBounds = this.bounds;
 
     L.imageOverlay(this.imageUrl, imageBounds).addTo(this.map);
 
          //topoLayer = new L.TopoJSON();
          this.map.scrollWheelZoom.disable();
- 
-    this.tileLayer = L.tileLayer(
-    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',
-     {
-       maxZoom: 18,
-       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
-    }
-   );
-    this.tileLayer.addTo(this.map);
     },
   initLayers() {
   	    var overlays = {
@@ -73,6 +72,7 @@ export default {
        
   },
   drag() {
+  			console.log("arrastrando el cursos");
             this.map.panInsideBounds(this.bounds, { animate: false });
         }
    ,
@@ -95,11 +95,28 @@ export default {
    getdataJson ()
    {
    		console.log(['Get data from json ']);
-   		axios.get(`http://cmsumbracostorage.blob.core.windows.net/kml/RI/GEO/31052017/082739/RI_completo.topo.json`)
+   		axios.get(this.lotesUrl)
 		    .then(response => {
 		      // JSON responses are automatically parsed.
 		      this.features = response.data
               this.addTopoData(response.data);
+		      
+		    })
+		    .catch(e => {
+		    	console.log(e);
+		      this.errors.push(e)
+		    })
+   },
+   getdatacomJson ()
+   {
+      		console.log(['Get data from json ']);
+   		axios.get("sampledata.js")
+		    .then(response => {
+		    	this.commercialData = response.data;
+		    	console.log(this.commercialData);
+		      // JSON responses are automatically parsed.
+		      this.commercialData = response.Document.Placemark
+            
 		      
 		    })
 		    .catch(e => {
@@ -149,7 +166,7 @@ export default {
                 weight: 1,
                 opacity: .5
             };
-            
+
    		 this.lg.addLayer(layer);
             var fillColor = "ccc";//colorScale(randomValue).hex();
 
