@@ -1,8 +1,15 @@
 <template>
   <div class="home">
-    <router-view></router-view>
-    <!--<Map acronimo="RI"/> -->
+  <div>
+    
+    </div>
+    <div>
+    <!--<router-view></router-view>-->
+    </div> 
+    
+    
   </div>
+  
 </template>
 
 <script>
@@ -10,9 +17,7 @@
 import Map from '@/components/Map.vue'
 
 export default {
-  name: 'home',
-  components: {
-    Map
-  }
+  name: 'home'
+  
 }
 </script>

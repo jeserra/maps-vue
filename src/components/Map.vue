@@ -1,7 +1,10 @@
 <template>
    <div id="app" class="container">
+<Zapslideout></Zapslideout>
   <div class="row">
+    
     <div class="col-md-12">
+
       <div id="map" class="map" 
       v-on:drag="drag"
       v-on:enterFullscreen="enterFullscreen($event)"

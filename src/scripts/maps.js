@@ -1,9 +1,12 @@
 import axios from "axios";
 import {fraccionamientosconfig}  from "../configs/fraccionamientosconfig.js"
-
+import Zapslideout from '@/components/Zap-slideout.vue'
 export default {
   props: {
     acronimo: String
+  },
+  components: {
+    Zapslideout
   },
   created()
   {
