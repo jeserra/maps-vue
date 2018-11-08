@@ -186,16 +186,16 @@ export default {
                     layer.setStyle(vendidoStyle);
                 }
             }
-       // this.featureGroup.addLayer(layer).on('click', function () { console.log ("click to open toggle")});
-         
+       
              layer.on(
                 'click', function (){
+                    $emit('clickedopen');
                     console.log("click to open toggle");
                 });
 
               layer.on(
                 'mouseover', function(){
-                    console.log("enter mouseover");
+                 //   console.log("enter mouseover");
                     var hoverStyle = {
                        weight: 1,
                        opacity: 1,
@@ -234,26 +234,10 @@ export default {
                           opacity: .5
                       };
 
-                  console.log("predeficnido");
+                //  console.log("predeficnido");
                  // console.log(selectedItem);
-                  
-                  if(this.selectedItem === undefined)
-                  {
-                      console.log('debe entrar aqui');
-                      if (this.feature.properties.styleUrl === "#Disponible") {
-                              this.setStyle(disponibleStyle);
-                        } else {
-                              if (this.feature.properties.styleUrl === "#Apartado") {
-                              this.setStyle(apartadoStyle);
-                        }
-                            else {
-                                this.setStyle(vendidoStyle);
-                                  }
-                            }
-                  }
-                  else 
-                  {
-                   if (selectedItem === this) {
+                     if(this.selectedItem !== undefined && selectedItem === this ){
+                 
                     }
                     else {
                         if (this.feature.properties.styleUrl === "#Disponible") {
@@ -267,8 +251,14 @@ export default {
                                   }
                             }
                     }
-                  }
+                 
                 });
+
+
+   },
+   clickedopen()
+   {
+       console.log('se emitio un click para abrr el pedo;');
    }
   }
 };
