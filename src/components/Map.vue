@@ -1,6 +1,5 @@
 <template>
    <div id="app" class="container">
-<Zapslideout></Zapslideout>
   <div class="row">
     
     <div class="col-md-12">
@@ -8,7 +7,9 @@
       <div id="map" class="map" 
       v-on:drag="drag"
       v-on:enterFullscreen="enterFullscreen($event)"
-      v-on:exitFullscreen="exitFullscreen($event)"></div>
+      v-on:exitFullscreen="exitFullscreen($event)">
+		<Zapslideout></Zapslideout>
+      </div>
     </div>
   </div>
 </div> 

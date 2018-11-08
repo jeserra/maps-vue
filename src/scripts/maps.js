@@ -6,7 +6,7 @@ export default {
     acronimo: String
   },
   components: {
-    Zapslideout
+   Zapslideout
   },
   created()
   {
@@ -27,13 +27,15 @@ export default {
     lg : new L.layerGroup(),
     positionControls : 'bottomright',
     topoLayer : new L.TopoJSON(),
+    featureGroup : new L.featureGroup(),
+    selectedItem: null,
 
     bounds: fraccionamientosconfig[this.acronimo].bounds, // L.latLngBounds([32.5434325643, -116.3206140960], [32.5256856161, -116.2937705616]) ,
     imageUrl :  fraccionamientosconfig[this.acronimo].imageUrl, // "https://cmsumbracostorage.blob.core.windows.net/media/7311/ranchoisabella-final.jpg",
     lotesUrl: fraccionamientosconfig[this.acronimo].lotesUrl, // `http://cmsumbracostorage.blob.core.windows.net/kml/RI/GEO/31052017/082739/RI_completo.topo.json`,
     latitud: fraccionamientosconfig[this.acronimo].latitud,
-    longitud: fraccionamientosconfig[this.acronimo].longitud
-   }
+    longitud: fraccionamientosconfig[this.acronimo].longitud,
+    }
   },
   mounted() { 
   this.initMap();
@@ -92,6 +94,7 @@ export default {
              this.topoLayer.addData(topoData);
              this.topoLayer.addTo(this.map);
              this.topoLayer.eachLayer(this.handleLayer);
+
             //$(".layer-load").fadeOut();
             console.log(['Finaliza proceso de carga del json']); // [18:13:17] ["foo"]
    },
@@ -183,12 +186,89 @@ export default {
                     layer.setStyle(vendidoStyle);
                 }
             }
+       // this.featureGroup.addLayer(layer).on('click', function () { console.log ("click to open toggle")});
+         
+             layer.on(
+                'click', function (){
+                    console.log("click to open toggle");
+                });
 
-            /*layer.on({
-                click: click,
-                mouseover: enterLayer,
-                mouseout: leaveLayer
-            });*/
+              layer.on(
+                'mouseover', function(){
+                    console.log("enter mouseover");
+                    var hoverStyle = {
+                       weight: 1,
+                       opacity: 1,
+                       fillColor: '#39b54a',
+                       color: '#b4b4b4',
+                       fillOpacity: .60
+                    };
+                  this.setStyle(hoverStyle);
+                }); 
+
+              layer.on(
+                'mouseout', function (){
+
+                  var apartadoStyle = {                               //style for Active GeoJSON feature
+                  fillColor: '#f60d0d',
+                  fillOpacity: .5,
+                  color: '#99c3eb',
+                  weight: 1,
+                  opacity: .5
+                  };
+
+                  var disponibleStyle = {
+                      fillColor: '#1c238b',
+                      fillOpacity: 0,
+                      color: '#b4b4b4',
+                      weight: 1,
+                      opacity: .2
+                  };
+
+                  var vendidoStyle =
+                      {
+                          fillColor: '#f60d0d',
+                          fillOpacity: .5,
+                          color: '#99c3eb',
+                          weight: 1,
+                          opacity: .5
+                      };
+
+                  console.log("predeficnido");
+                 // console.log(selectedItem);
+                  
+                  if(this.selectedItem === undefined)
+                  {
+                      console.log('debe entrar aqui');
+                      if (this.feature.properties.styleUrl === "#Disponible") {
+                              this.setStyle(disponibleStyle);
+                        } else {
+                              if (this.feature.properties.styleUrl === "#Apartado") {
+                              this.setStyle(apartadoStyle);
+                        }
+                            else {
+                                this.setStyle(vendidoStyle);
+                                  }
+                            }
+                  }
+                  else 
+                  {
+                   if (selectedItem === this) {
+                    }
+                    else {
+                        if (this.feature.properties.styleUrl === "#Disponible") {
+                              this.setStyle(disponibleStyle);
+                        } else {
+                              if (this.feature.properties.styleUrl === "#Apartado") {
+                              this.setStyle(apartadoStyle);
+                        }
+                            else {
+                                this.setStyle(vendidoStyle);
+                                  }
+                            }
+                    }
+                  }
+                });
    }
   }
 };

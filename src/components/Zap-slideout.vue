@@ -7,6 +7,7 @@
       <li class="zap-slideout-menu-item">
         <img class="zap-emoji" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/19332/zap-emoji.svg" alt="Zap Emoji" />
       </li>
+      <li class="zap-slideout-menu-item">{{mza}}</li>
       <li class="zap-slideout-menu-item"
         v-for="item in menu" :key="item">{{item}}</li>
       <li class="zap-slideout-menu-item--small"
@@ -72,6 +73,7 @@ Our Zap Slideout styles...
 .zap-slideout.isOpen {
   -webkit-transform: translateX(0);
           transform: translateX(0);
+          z-index:1000;
 }
 
 .zap-slideout-opener {
