@@ -7,11 +7,12 @@
       <li class="zap-slideout-menu-item">
         <img class="zap-emoji" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/19332/zap-emoji.svg" alt="Zap Emoji" />
       </li>
+      <li class="zap-slideout-menu-item">{{fraccionamiento}}</li>
       <li class="zap-slideout-menu-item">{{mza}}</li>
-      <li class="zap-slideout-menu-item"
-        v-for="item in menu" :key="item">{{item}}</li>
-      <li class="zap-slideout-menu-item--small"
-        v-for="item in smallMenu" :key="item">{{item}}</li>
+       <li class="zap-slideout-menu-item">{{lote}}</li>
+        <li class="zap-slideout-menu-item">{{precio}}</li>
+        <li class="zap-slideout-menu-item">{{size}}</li>
+       
     </ul>
   </div>
  </template>

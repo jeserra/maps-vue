@@ -8,7 +8,7 @@
       v-on:drag="drag"
       v-on:enterFullscreen="enterFullscreen($event)"
       v-on:exitFullscreen="exitFullscreen($event)">
-		<Zapslideout></Zapslideout>
+		<Zapslideout ref="zapSlideOut"></Zapslideout>
       </div>
     </div>
   </div>

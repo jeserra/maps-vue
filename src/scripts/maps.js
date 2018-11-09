@@ -1,12 +1,14 @@
 import axios from "axios";
 import {fraccionamientosconfig}  from "../configs/fraccionamientosconfig.js"
 import Zapslideout from '@/components/Zap-slideout.vue'
+import EventBus from './event-bus';
+
 export default {
   props: {
     acronimo: String
   },
   components: {
-   Zapslideout
+   Zapslideout:Zapslideout
   },
   created()
   {
@@ -40,6 +42,7 @@ export default {
   mounted() { 
   this.initMap();
   this.initLayers(); 
+    EventBus.$on('clickedopen', this.toggle); 
   },
   methods: { 
    initMap() { 
@@ -186,12 +189,16 @@ export default {
                     layer.setStyle(vendidoStyle);
                 }
             }
-       
-             layer.on(
-                'click', function (){
-                    $emit('clickedopen');
-                    console.log("click to open toggle");
-                });
+        
+              layer.on(
+                'click',  function()
+                {
+                  console.log(this.feature.properties);
+                  EventBus.$emit('clickedopen', this.feature.properties);
+                });  
+
+           /*  layer.on(
+                'click', this.clickedopen); */
 
               layer.on(
                 'mouseover', function(){
@@ -236,10 +243,11 @@ export default {
 
                 //  console.log("predeficnido");
                  // console.log(selectedItem);
-                     if(this.selectedItem !== undefined && selectedItem === this ){
-                 
+                     if(this.selectedItem !== undefined && this.selectedItem === this ){
+                        //
                     }
                     else {
+                       console.log(this.selectedItem);
                         if (this.feature.properties.styleUrl === "#Disponible") {
                               this.setStyle(disponibleStyle);
                         } else {
@@ -253,12 +261,16 @@ export default {
                     }
                  
                 });
-
-
    },
-   clickedopen()
+   toggle(properties)
    {
-       console.log('se emitio un click para abrr el pedo;');
-   }
+     
+      this.$refs.zapSlideOut.toggle();
+      this.$refs.zapSlideOut.fraccionamiento = properties.name.split('|')[0];
+      this.$refs.zapSlideOut.mza = properties.name.split('|')[1];
+      this.$refs.zapSlideOut.lote = properties.name.split('|')[2];
+      this.$refs.zapSlideOut.precio = "$3000";
+      this.$refs.zapSlideOut.size= "300m2"
+   } 
   }
 };
