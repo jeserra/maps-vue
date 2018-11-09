@@ -11,7 +11,8 @@
       <li class="zap-slideout-menu-item">{{mza}}</li>
        <li class="zap-slideout-menu-item">{{lote}}</li>
         <li class="zap-slideout-menu-item">{{precio}}</li>
-        <li class="zap-slideout-menu-item">{{size}}</li>
+        <li class="zap-slideout-menu-item">{{preciom2}}</li>
+        <li class="zap-slideout-menu-item">{{superficie}}</li>
        
     </ul>
   </div>

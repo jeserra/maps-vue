@@ -135,6 +135,7 @@ export default {
    },
    handleLayer(layer){
 
+    console.log("agregando elemento");
    	var hoverStyle = {
             weight: 1,
             opacity: 1,
@@ -264,13 +265,17 @@ export default {
    },
    toggle(properties)
    {
-     
-      this.$refs.zapSlideOut.toggle();
+     if(this.$refs.zapSlideOut.isOpen)
+        this.$refs.zapSlideOut.close();
+
+    // console.log(properties);
+      this.$refs.zapSlideOut.open();
       this.$refs.zapSlideOut.fraccionamiento = properties.name.split('|')[0];
       this.$refs.zapSlideOut.mza = properties.name.split('|')[1];
       this.$refs.zapSlideOut.lote = properties.name.split('|')[2];
-      this.$refs.zapSlideOut.precio = "$3000";
-      this.$refs.zapSlideOut.size= "300m2"
+      this.$refs.zapSlideOut.precio = "$" + properties.precio;
+      this.$refs.zapSlideOut.preciom2 =  "$" + properties.precioM2;
+      this.$refs.zapSlideOut.superficie=  properties.superficie + "M2";
    } 
   }
 };

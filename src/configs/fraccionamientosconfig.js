@@ -11,7 +11,8 @@ export const fraccionamientosconfig = {
 	{
 		bounds : L.latLngBounds([32.3196400, -117.0467520], [32.3112833, -117.0381488]),
         imageUrl : "https://cmsumbracostorage.blob.core.windows.net/media/39560/puntazul-esmeralda-convertido-3.jpg",
-        lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/PE/GEO/16092018/101240/PE_Completo.topo.json`,
+        lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/PE/PE_Completo.topo.json`,
+        //lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/PE/GEO/16092018/101240/PE_Completo.topo.json`,
         latitud: 32.3226959722, 
         longitud: -117.03787451692
 	}, 

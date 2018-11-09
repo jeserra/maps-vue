@@ -10,7 +10,10 @@ export default {
     isOpen: false,
     mza:'',
     lote:'',
-    fraccionamiento:''
+    fraccionamiento:'',
+    precio:'',
+    preciom2:'',
+    superficie:'',
   }},
 
   methods: {
