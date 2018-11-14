@@ -14,7 +14,7 @@ export default {
   {
     console.log(this.acronimo);
     	this.getdataJson();
-    	this.getdatacomJson();
+    	//this.getdatacomJson();
 
   } 
   ,
@@ -31,8 +31,7 @@ export default {
     topoLayer : new L.TopoJSON(),
     featureGroup : new L.featureGroup(),
     selectedItem: null,
-    showAmenidad:false,
-
+   
     bounds: fraccionamientosconfig[this.acronimo].bounds, // L.latLngBounds([32.5434325643, -116.3206140960], [32.5256856161, -116.2937705616]) ,
     imageUrl :  fraccionamientosconfig[this.acronimo].imageUrl, // "https://cmsumbracostorage.blob.core.windows.net/media/7311/ranchoisabella-final.jpg",
     lotesUrl: fraccionamientosconfig[this.acronimo].lotesUrl, // `http://cmsumbracostorage.blob.core.windows.net/kml/RI/GEO/31052017/082739/RI_completo.topo.json`,
@@ -44,8 +43,9 @@ export default {
   mounted() { 
   this.initMap();
   this.initLayers(); 
+   this.initAmenidades();
     EventBus.$on('clickedopen', this.toggle); 
-    //EventBus.$on('clickedopen', this.showAmenidades); 
+    EventBus.$on('clickmodal', this.showAmenidades); 
   },
   methods: { 
    initMap() { 
@@ -78,6 +78,56 @@ export default {
 
         L.control.layers(null, overlays, { position: this.positionControls }).addTo(this.map);
         new L.Control.Zoom({ position: this.positionControls }).addTo(this.map);
+  },
+  initAmenidades (){
+      console.log("Add amenidades");
+       var listaAmenidades  =   JSON.parse("[{\"Nombre\":\"Las Puertas D\u0027Mazatlán\",\"ContenidoPopup\":{\"viewType\":\"image\",\"title\":\"Las Puertas D\u0027Mazatlán\",\"id\":\"0\",\"caption\":\"\",\"data\":[{\"imageUrl\":\"http://cmsumbracostorage.blob.core.windows.net/media/38807/img-paradisiacas-playas-1.jpg\",\"videoID\":null,\"alt\":\"\",\"caption\":\"Las Puertas D\u0027Mazatlán\"}]},\"Descripcion\":\"\",\"Latitud\":\"32.314924\",\"Longitud\":\"-117.043521\",\"Icono\":\"http://cmsumbracostorage.blob.core.windows.net/media/38723/map_green_amenities.png\"}]");
+    
+    var MarkerAmenities = L.Marker.extend({
+        idMarker: 'data-marker',
+        contentGalery: Object
+    });
+
+      var i = 0;
+       console.log(listaAmenidades);
+       for (i = 0; i < listaAmenidades.length; i++) {
+
+            var amenidadIcon = L.icon({
+                iconUrl: listaAmenidades[i].Icono,
+                iconSize: [22, 22], // size of the icon
+                popupAnchor: [0, -15]
+            });
+
+            var customOptions =
+            {
+                'maxWidth': '500'
+            };
+
+            var latitud =   Number(listaAmenidades[i].Latitud); //  32.314924;
+            var longitud =  Number(listaAmenidades[i].Longitud); //-117.043521;//     
+
+            console.log(latitud);
+
+            console.log( longitud);
+            
+            var marker = new L.Marker([latitud, longitud], { icon: amenidadIcon, title: "" });
+           // marker.idMarker = i;
+            marker.bindPopup('<b>Da click para ver más</b>');
+          //  marker.contentGalery = listaAmenidades[i].ContenidoPopup;
+
+            console.log(marker.idMarker);
+            marker.on('mouseover', function () {                
+                this.openPopup();
+            });
+            marker.on('click', function () {
+                //console.log(this.contentGalery);
+                  EventBus.$emit('clickmodal', this);
+                
+            });
+            marker.addTo(this.map);
+
+        }
+
   },
   layerChanged(layerId, active) {
        
@@ -127,7 +177,7 @@ export default {
 		    	this.commercialData = response.data;
 		    	console.log(this.commercialData);
 		      // JSON responses are automatically parsed.
-		      this.commercialData = response.Document.Placemark
+		     // this.commercialData = response.Document.Placemark
             
 		      
 		    })

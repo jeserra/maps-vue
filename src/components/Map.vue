@@ -12,11 +12,11 @@
       </div>
     </div>
     <!-- use the modal component, pass in the prop -->
-<modal name="hello-world">
+<modal name="hello-world" height="500px" width="800px">
   <a-scene>
       <a-sky src="puydesancy.jpg" rotation="0 -130 0"></a-sky>
 
-      <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
+      <a-text font="kelsonsans" value="Playas de Mazatlan" width="6" position="-2.5 0.25 -1.5"
               rotation="0 15 0"></a-text>
     </a-scene>
 </modal>
