@@ -14,6 +14,7 @@ export default {
     precio:'',
     preciom2:'',
     superficie:'',
+    superficieft:'',
   }},
 
   methods: {

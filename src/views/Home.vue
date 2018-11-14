@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-  <div>
-    
+  <div class="home">
+   <p> Aqui es el home</p>
     </div>
     <div>
-    <!--<router-view></router-view>-->
+   
     </div> 
     
     

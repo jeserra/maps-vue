@@ -1,5 +1,5 @@
 <template>
-   <div id="app" class="container">
+
   <div class="row">
     
     <div class="col-md-12">
@@ -11,11 +11,21 @@
 		<Zapslideout ref="zapSlideOut"></Zapslideout>
       </div>
     </div>
+    <!-- use the modal component, pass in the prop -->
+<modal name="hello-world">
+  <a-scene>
+      <a-sky src="puydesancy.jpg" rotation="0 -130 0"></a-sky>
+
+      <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
+              rotation="0 15 0"></a-text>
+    </a-scene>
+</modal>
   </div>
-</div> 
+
 </template>
 <style scoped>
 .map { height: 800px; width :1200px; }
+
 </style>
 <script type="text/javascript">L_PREFER_CANVAS = true;</script>
 <script src="..\scripts\maps.js"/>

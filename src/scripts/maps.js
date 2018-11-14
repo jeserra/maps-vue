@@ -31,18 +31,21 @@ export default {
     topoLayer : new L.TopoJSON(),
     featureGroup : new L.featureGroup(),
     selectedItem: null,
+    showAmenidad:false,
 
     bounds: fraccionamientosconfig[this.acronimo].bounds, // L.latLngBounds([32.5434325643, -116.3206140960], [32.5256856161, -116.2937705616]) ,
     imageUrl :  fraccionamientosconfig[this.acronimo].imageUrl, // "https://cmsumbracostorage.blob.core.windows.net/media/7311/ranchoisabella-final.jpg",
     lotesUrl: fraccionamientosconfig[this.acronimo].lotesUrl, // `http://cmsumbracostorage.blob.core.windows.net/kml/RI/GEO/31052017/082739/RI_completo.topo.json`,
     latitud: fraccionamientosconfig[this.acronimo].latitud,
     longitud: fraccionamientosconfig[this.acronimo].longitud,
+    fraccionamiento: fraccionamientosconfig[this.acronimo].fraccionamiento,
     }
   },
   mounted() { 
   this.initMap();
   this.initLayers(); 
     EventBus.$on('clickedopen', this.toggle); 
+    //EventBus.$on('clickedopen', this.showAmenidades); 
   },
   methods: { 
    initMap() { 
@@ -195,7 +198,9 @@ export default {
                 'click',  function()
                 {
                   console.log(this.feature.properties);
-                  EventBus.$emit('clickedopen', this.feature.properties);
+                //  EventBus.$emit('clickedopen',    this.feature.properties);
+                 
+                  EventBus.$emit('clickedopen', this);
                 });  
 
            /*  layer.on(
@@ -242,8 +247,7 @@ export default {
                           opacity: .5
                       };
 
-                //  console.log("predeficnido");
-                 // console.log(selectedItem);
+                
                      if(this.selectedItem !== undefined && this.selectedItem === this ){
                         //
                     }
@@ -263,19 +267,52 @@ export default {
                  
                 });
    },
-   toggle(properties)
+   toggle(item)
    {
-     if(this.$refs.zapSlideOut.isOpen)
-        this.$refs.zapSlideOut.close();
+      console.log("toggl");
+      
+     console.log(this.selectedItem);
 
-    // console.log(properties);
-      this.$refs.zapSlideOut.open();
-      this.$refs.zapSlideOut.fraccionamiento = properties.name.split('|')[0];
-      this.$refs.zapSlideOut.mza = properties.name.split('|')[1];
-      this.$refs.zapSlideOut.lote = properties.name.split('|')[2];
-      this.$refs.zapSlideOut.precio = "$" + properties.precio;
-      this.$refs.zapSlideOut.preciom2 =  "$" + properties.precioM2;
-      this.$refs.zapSlideOut.superficie=  properties.superficie + "M2";
-   } 
+      if(this.selectedItem === item){
+
+          console.log("quitar algo");
+           this.$refs.zapSlideOut.close();
+           this.selectedItem  = null;
+      }
+      else{
+
+        this.selectedItem = item;
+        var properties = item.feature.properties;
+         if(this.$refs.zapSlideOut.isOpen)
+            this.$refs.zapSlideOut.close();
+
+          //console.log(properties);
+          this.$refs.zapSlideOut.open();
+
+          var pies2 = Number(properties.superficie) * 10.7639;
+          this.$refs.zapSlideOut.fraccionamiento = this.fraccionamiento;
+          this.$refs.zapSlideOut.mza = properties.name.split('|')[1].substr(1);
+          this.$refs.zapSlideOut.lote = properties.name.split('|')[2].substr(1);
+          this.$refs.zapSlideOut.precio = "$" + this.addComma(properties.precio) + "USD"
+          this.$refs.zapSlideOut.preciom2 =  "$" +this.addComma(properties.precioM2) + "USD";
+          this.$refs.zapSlideOut.superficie=  this.addComma(properties.superficie) + "M2" ;
+          this.$refs.zapSlideOut.superficieft= "/ "+ this.addComma(pies2.toFixed(2)) + "sq ft" ;
+      }
+    
+   },
+   showAmenidades(){
+      this.$modal.show('hello-world');
+   },
+   addComma (nStr) {
+        nStr += '';
+        var x = nStr.split('.');
+        var x1 = x[0];
+        var x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
   }
 };

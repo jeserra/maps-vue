@@ -7,14 +7,26 @@
       <li class="zap-slideout-menu-item">
         <img class="zap-emoji" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/19332/zap-emoji.svg" alt="Zap Emoji" />
       </li>
-      <li class="zap-slideout-menu-item">{{fraccionamiento}}</li>
-      <li class="zap-slideout-menu-item">{{mza}}</li>
-       <li class="zap-slideout-menu-item">{{lote}}</li>
-        <li class="zap-slideout-menu-item">{{precio}}</li>
-        <li class="zap-slideout-menu-item">{{preciom2}}</li>
-        <li class="zap-slideout-menu-item">{{superficie}}</li>
-       
+      <div class="zap-slideout-menu-item--small">Fraccionamiento: {{fraccionamiento}}</div>
+      <div class="zap-slideout-menu-item--small">Manzana: {{mza}}</div>
+       <div class="zap-slideout-menu-item--small">Lote: {{lote}}</div>
+        <div class="zap-slideout-menu-item--small">Superficie M2 {{superficie}}</div>
+        <div class="zap-slideout-menu-item--small">{{superficieft}}</div>
+        <div class="zap-slideout-menu-item--small">Precio: {{precio}}</div>
+        <div class="zap-slideout-menu-item--small">Precio Metro Cuadrado:{{preciom2}}</div>
     </ul>
+    <div class="btn btn-sm btn-primary highlight-information" style="font-size: 16px;" id="div_botonverde">
+                                            <div>
+                                            <label>Para más información sobre este </label>
+                                            </div>
+                                            <div>
+                                             <label> terreno comuníquese a los teléfonos</label>
+                                             </div>
+       <ul>                                      
+        <a href="tel://+528002694582" style="font-weight:bold;color:white;">MEX: 01-800-269-4582</a> 
+        <a href="tel://+18555543763" style="font-weight:bold;color:white;">USA: 1-855-554-3763</a>
+       </ul>
+    </div>
   </div>
  </template>
 
@@ -62,10 +74,10 @@ Our Zap Slideout styles...
  */
 .zap-slideout {
   position: relative;
-  width: 240px;
+  width: 300px;
   height: 100vh;
   padding: 30px;
-  background-color: #34495e;
+  background-color: #231f20;
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
   transition: -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -76,6 +88,7 @@ Our Zap Slideout styles...
   -webkit-transform: translateX(0);
           transform: translateX(0);
           z-index:1000;
+ 
 }
 
 .zap-slideout-opener {
@@ -89,9 +102,6 @@ Our Zap Slideout styles...
   color: #fff;
   cursor: pointer;
 }
-.zap-slideout-opener:hover {
-  text-decoration: underline;
-}
 
 .zap-slideout-menu {
   font-weight: 600;
@@ -104,7 +114,7 @@ Our Zap Slideout styles...
 }
 .zap-slideout-menu-item:hover,
 .zap-slideout-menu-item--small:hover {
-  text-decoration: underline;
+  
 }
 .zap-slideout-menu-item + .zap-slideout-menu-item,
 .zap-slideout-menu-item--small + .zap-slideout-menu-item, .zap-slideout-menu-item +

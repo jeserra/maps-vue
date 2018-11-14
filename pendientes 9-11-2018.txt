@@ -8,4 +8,4 @@ Pendientes
 6. Tratar de mover el detalle al lado derecho. 
 7. Implementar el proceso de integracion en una funcion. 
 8. Dar formato a las etiquetas del detalle. 
-
+9. Cambiar de color con el boton de seleccionar. 

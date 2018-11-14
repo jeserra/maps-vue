@@ -3,8 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-Vue.config.productionTip = false
+import VModal from 'vue-js-modal'
+ 
+Vue.use(VModal)
 
+Vue.config.productionTip = false
+ 
 new Vue({
   router,
   store,

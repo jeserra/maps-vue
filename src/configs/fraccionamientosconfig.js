@@ -5,7 +5,9 @@ export const fraccionamientosconfig = {
         imageUrl : "https://cmsumbracostorage.blob.core.windows.net/media/7311/ranchoisabella-final.jpg",
         lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/RI/GEO/31052017/082739/RI_completo.topo.json`,
         latitud: 32.53457, 
-        longitud: -116.30713
+        longitud: -116.30713,
+        fraccionamiento: "Rancho Isabella",
+        //TODO : Agregrar //porcentajeEnganche, porcentajeDescuentoContado, porcentajeDescuentoCredito, interesAnual, nomensualidadesfinanciado, cargoAdministrativo
 	},
 	PE:
 	{
@@ -14,7 +16,8 @@ export const fraccionamientosconfig = {
         lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/PE/PE_Completo.topo.json`,
         //lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/PE/GEO/16092018/101240/PE_Completo.topo.json`,
         latitud: 32.3226959722, 
-        longitud: -117.03787451692
+        longitud: -117.03787451692,
+        fraccionamiento: "Punta Azul Esmeralda"
 	}, 
 	PM:
 	{
@@ -22,6 +25,7 @@ export const fraccionamientosconfig = {
         lotesUrl:`http://cmsumbracostorage.blob.core.windows.net/kml/PM/GEO/17092018/101641/PM_completo.topo.json`,
 		bounds : L.latLngBounds([23.3697018521, -106.5067041671], [23.3499576446, -106.4793102118]), // Puertas de Mazatlan
 		latitud: 23.35919, 
-        longitud: -106.49534
+        longitud: -106.49534,
+        fraccionamiento: "Las Puertas de Mazatlan"
 	}
 }
